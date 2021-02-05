@@ -43,7 +43,7 @@ module.exports.getRank = function(score, callback){
     collection.find({score: {$gt: score}}, {_id: 0, name: 0, score: 1}).toArray(function(err, result){
         if(err){
             console.log("Error retrieving records from db: "+ err);
-            callback(0)
+            callback(0);
             return;
         }
         console.log("Results successfully obtained");

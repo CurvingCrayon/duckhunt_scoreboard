@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-
+const mongo = require('./mongo.js');
 const app = express();
 
 
@@ -11,10 +11,25 @@ const app = express();
 // });
 app.get('/score/:score', function(req, res) { //Route main page
     //req.params.score
-    var score = req.params.score;
-    var rank = 34;
-    res.status(200).send(String(rank));
-    console.log("new score: " + score + ", rank: " + rank);
+
+    var score = Number(req.params.score);
+    if(isNaN(score)){
+        res.status(200).send("0");
+        return;
+    }
+    
+    console.log("New score received: " + score);
+    mongo.addScore(score, function(success){
+        if(!success){
+            res.status(200).send("0");
+            console.log("Failed to add score.");
+            return;
+        }
+        console.log("Getting rank...");
+        mongo.getRank(score, function(rank){
+            res.status(200).send(String(rank));
+        });
+    });
 });
 
 //===========
