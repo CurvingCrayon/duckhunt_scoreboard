@@ -3,6 +3,10 @@
 # dependencies
 /node_modules
 
+/.next
+
+/.vscode
+
 /auth.js
 
 # testing

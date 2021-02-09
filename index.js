@@ -1,10 +1,12 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
+
 const mongo = require('./mongo.js');
 const app = express();
 
 
-
+app.use(cors());
 
 // app.get('/', function(req, res) { //Route main page
 // 	res.sendFile(path.join(__dirname, 'build', 'index.html'));
@@ -32,6 +34,14 @@ app.get('/score/:score', function(req, res) { //Route main page
     });
 });
 
+app.get('/getScores', function(req, res){
+    mongo.getAllScores(function(result){
+        var obj = {
+            scores: result
+        };
+        res.send(JSON.stringify(obj));
+    });
+});
 //===========
 // Begin
 //===========

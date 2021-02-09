@@ -53,3 +53,44 @@ module.exports.getRank = function(score, callback){
     });
 }
 
+function rankScores(arr){
+    //Sort values
+    function compare(b, a){
+        if(a.score < b.score){
+            return -1;
+        }
+        else if(a.score > b.score){
+            return 1;
+        }
+        return 0;
+    }
+    var sortedArr = arr.sort(compare);
+    
+    var prevVal = 0;
+    var prevRank = 1;
+    //rank vals
+    for(var i = 0; i < sortedArr.length; i++){
+        if(sortedArr[i].score == prevVal){
+            sortedArr[i].rank = prevRank;
+        }
+        else{
+            sortedArr[i].rank = i + 1;
+            prevRank = i + 1;
+        }
+        prevVal = sortedArr[i].score;
+    }
+    return sortedArr;
+}
+module.exports.getAllScores = function(callback){
+    collection.find({score:{$type: "int"}}, {}).toArray(function(err, result){
+        if(err){
+            console.log("Error retrieving all records from db: "+ err);
+            callback(0);
+            return;
+        }
+        console.log("All results successfully obtained");
+
+        //Results will be filled with scores better than the queried one
+        callback(rankScores(result));
+    });
+}
