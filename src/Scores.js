@@ -2,7 +2,7 @@ import { apiResolver } from 'next/dist/next-server/server/api-utils';
 import React, { useState, useEffect }  from 'react';
 import Table from 'react-bootstrap/Table';
 
-import scoreAPI from './scoreAPI.js';
+import * as scoreAPI from './scoreAPI.js';
 
 import App from './App.js';
 import Global from './Global.js';

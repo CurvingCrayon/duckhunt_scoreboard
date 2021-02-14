@@ -1,4 +1,4 @@
-var URL = "http://localhost:5000";
+var URL = (process.env.URL || "http://localhost:5000") + "/API";
 var TIMEOUT = 1000;
 
 function getFromURL(url){
@@ -23,7 +23,7 @@ function getFromURL(url){
         xhttp.send();
     });
 }
-exports.getScores = async function(){
+export async function getScores(){
     const result = await getFromURL(URL + "/getScores");
     if(result.status == 200){ //Successful get from backend server
         if(result.resp !== "0"){ //If backend server was able to communicate with db
@@ -42,9 +42,10 @@ exports.getScores = async function(){
             success: false
         };
     }
-};
+}
 
-exports.updateName = async function(id, name){
+
+export async function updateName(id, name){
     const result = await getFromURL(URL + "/setName/"+id+"/"+name);
     if(result.status == 200){ //Successful get from backend db
         if(result.resp !== "0"){ //If backend server was able to communicate with db
@@ -59,7 +60,7 @@ exports.updateName = async function(id, name){
     }
 };
 
-exports.deleteScore = async function(id){
+export async function deleteScore(id){
     const result = await getFromURL(URL + "/deleteScore/"+id);
     if(result.status == 200){ //Successful get from backend db
         if(result.resp !== "0"){ //If backend server was able to communicate with db
@@ -73,3 +74,7 @@ exports.deleteScore = async function(id){
         return false;
     }
 }
+// function F(){
+
+// }
+// export default F;
