@@ -1,4 +1,4 @@
-var URL = (process.env.URL || "http://localhost:5000") + "/API";
+var URL = (process.env.REACT_APP_API_URL || "http://localhost:5000") + "/API";
 var TIMEOUT = 1000;
 
 function getFromURL(url){

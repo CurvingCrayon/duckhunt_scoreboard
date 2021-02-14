@@ -11,6 +11,8 @@
 
 /auth.js
 
+/.env
+
 # testing
 /coverage
 
