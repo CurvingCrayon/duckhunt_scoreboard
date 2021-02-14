@@ -1,4 +1,14 @@
-const auth = require('./auth.js');
+var auth;
+if(process.env.env_auth){
+    auth = {
+        user: process.env.user,
+        pass: process.env.pass,
+        db: process.env.db
+    };
+}
+else{
+    auth = require('./auth.js');
+}
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 const uri = "mongodb+srv://"+auth.user + ":" + auth.pass + "@cluster0.pzcsk.mongodb.net/"+auth.db+"?retryWrites=true&w=majority";
