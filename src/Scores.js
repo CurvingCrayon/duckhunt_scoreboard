@@ -9,7 +9,6 @@ import Global from './Global.js';
 
 
 function canEdit(){
-    return true;
     if(window.location.pathname.search("edit") != -1){
         return true;
     }
@@ -53,23 +52,26 @@ function Score(props){
     }
 
     function attemptDelete(e){
-        Global.confirm("Are you sure you want to delete this score?",
-        function(){ //Confirm
-            scoreAPI.deleteScore(props.id).then(success=>{
-                if(success){
-                    Global.setAlertType("success");
-                    Global.setAlert("Successfully deleted score."); 
-                    setExists(false);
-                }
-                else{
-                    Global.setAlertType("danger");
-                    Global.setAlert("Failed to delete score for " + props.name);
-                }
+        if(canEdit()){
+            Global.confirm("Are you sure you want to delete this score?",
+            function(){ //Confirm
+                scoreAPI.deleteScore(props.id).then(success=>{
+                    if(success){
+                        Global.setAlertType("success");
+                        Global.setAlert("Successfully deleted score."); 
+                        setExists(false);
+                    }
+                    else{
+                        Global.setAlertType("danger");
+                        Global.setAlert("Failed to delete score for " + props.name);
+                    }
+                });
+            },
+            function(){ //Cancel
+                //console.log("Cancelled")
             });
-        },
-        function(){ //Cancel
-            //console.log("Cancelled")
-        });
+        }
+        
         if(e !== undefined){
             e.preventDefault();
         }

@@ -64,6 +64,7 @@ app.get('/API/deleteScore/:id', function(req, res){
 // app.get('/', function(req, res) { //Route main page
 // 	res.sendFile(path.join(__dirname, 'build', 'index.html'));
 // });
+app.use('/edit', express.static('build'));
 app.use(express.static('build'));
 
 app.listen((process.env.PORT || 5000), function(){
