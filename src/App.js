@@ -53,7 +53,7 @@ function App(){
 		<HeadAlert text={text} variant={type} />
 		<Jumbotron>
 			<h1 className="display-3">Duck Hunter High Scores</h1>
-			<h3>by The UTS Electrical Society</h3>
+			<h3>by <a href="http://www.utsesoc.com.au" target="_blank">The UTS Electrical Society</a></h3>
 		</Jumbotron>
 		<Scores alertFunction={text=>updateAlert} />
 	</Container>
